@@ -1,5 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import InputSearch from "../Search/InputSearch";
 
 export default function Splash() {
-  return <></>;
+  const [searchVal, setSearchVal] = useState("");
+  const handleInputChange = ({ target: { value } }) => {
+    setSearchVal(value);
+  };
+  return (
+    <>
+      <InputSearch handleChange={handleInputChange} val={searchVal} />
+    </>
+  );
 }
