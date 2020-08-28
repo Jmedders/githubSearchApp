@@ -10,4 +10,4 @@ To set up this repo, follow the below instructions
 6. yarn
 7. yarn start (runs on localhost:3000)
 8. examine & use app on localhost:3000
-9. run tests with cypress using yarn test
+9. for tests, cd into client directory and run `yarn test` to run cypress tests
