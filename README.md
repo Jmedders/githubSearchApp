@@ -9,4 +9,4 @@ To set up this repo, follow the below instructions
 5. cd ./client
 6. yarn
 7. yarn start (runs on localhost:3000)
-8. examine app on localhost:3000
+8. examine & use app on localhost:3000

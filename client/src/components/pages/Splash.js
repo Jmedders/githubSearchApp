@@ -6,6 +6,7 @@ import Filter from "../Search/Filter";
 import Sort from "../Search/Sort";
 import Margin from "../common/Margin";
 import ColorText from "../common/ColorText";
+import Card from "../common/Card";
 import { useSearch } from "../../context/search-context";
 
 export default function Splash() {
@@ -26,7 +27,6 @@ export default function Splash() {
           filter: filterVal,
         },
       });
-      console.log(response);
       // request finished, set loading state to false
       setLoading(false);
       // if there's a response and it has a data object
@@ -64,6 +64,16 @@ export default function Splash() {
           We were unable to fetch your results from Github. Please check back in
           and try again soon.
         </div>
+      )}
+      <Margin minHeight>{loading && <>Loading...</>}</Margin>
+      {data && data.items && data.items.length ? (
+        <>
+          {data.items.map((item, idx) => {
+            return <Card idx={idx} key={item.id} data={item} />;
+          })}
+        </>
+      ) : (
+        <>{searchVal && !error && !loading ? <>No results found!</> : null}</>
       )}
     </Wrap>
   );
