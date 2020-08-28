@@ -2,14 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { useSearch } from "../../context/search-context";
 
-export default function InputSearch() {
-  const { searchVal, setSearchVal } = useSearch();
+export default function InputSearch({ handleChange }) {
+  const { searchVal } = useSearch();
   return (
     <Wrap>
       <Input
         value={searchVal}
         placeholder="Enter a search term"
-        onChange={({ target }) => setSearchVal(target.value)}
+        onChange={handleChange}
       />
     </Wrap>
   );

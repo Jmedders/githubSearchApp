@@ -7,6 +7,7 @@ function SearchProvider({ children }) {
   const [sortVal, setSortVal] = useState("relevance");
   const [filterVal, setFilterVal] = useState("");
   const [searchVal, setSearchVal] = useState("");
+  const [debouncedVal, setDebouncedVal] = useState("");
 
   return (
     <SearchContext.Provider
@@ -17,6 +18,8 @@ function SearchProvider({ children }) {
         setFilterVal,
         sortVal,
         setSortVal,
+        debouncedVal,
+        setDebouncedVal,
       }}
     >
       {children}

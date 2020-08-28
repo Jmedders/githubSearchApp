@@ -1,56 +1,50 @@
 import React, { useState } from "react";
-import axios from "axios";
 import styled from "styled-components";
+import Sort from "../Search/Sort";
 import InputSearch from "../Search/InputSearch";
 import Filter from "../Search/Filter";
-import Sort from "../Search/Sort";
 import Margin from "../common/Margin";
-import ColorText from "../common/ColorText";
 import Card from "../common/Card";
+import ColorText from "../common/ColorText";
 import { useSearch } from "../../context/search-context";
+import useDataGrab from "../../hooks/useDataGrab";
 
 export default function Splash() {
-  const { searchVal, sortVal, filterVal } = useSearch();
-  const [loading, setLoading] = useState(false);
-  const [haveRun, setHaveRun] = useState(false);
-  const [error, setError] = useState(false);
-  const [data, setData] = useState([]);
-  const grabData = async () => {
-    try {
-      // set loading state
-      setLoading(true);
-      // fetch resource from backend
-      const response = await axios.get("http://localhost:5000/", {
-        params: {
-          repositoryName: searchVal,
-          sortBy: sortVal,
-          filter: filterVal,
-        },
-      });
-      // request finished, set loading state to false
-      setLoading(false);
-      // if there's a response and it has a data object
-      // which is default for axios
-      if (response && response.data) {
-        // set the data so that a list can be displayed
-        // this data pulled off in Splash component
-        setData(response.data.response);
-      }
-    } catch (err) {
-      // set error state
-      setError(err);
-    }
+  const [debounceSearch, setDebounceSearch] = useState(false);
+  const {
+    sortVal,
+    filterVal,
+    setSearchVal,
+    debouncedVal,
+    setDebouncedVal,
+  } = useSearch();
+  const { data, loading, error } = useDataGrab({
+    searchVal: debouncedVal,
+    filterVal,
+    sortVal,
+  });
+
+  const handleInputChange = ({ target: { value } }) => {
+    // if it's been less than 0.45s since user last typed
+    // clear old timeout
+    if (debounceSearch) clearTimeout(debounceSearch);
+    setSearchVal(value);
+    setDebounceSearch(
+      setTimeout(async () => {
+        // only execute a data grab once user input done
+        // using a diff. state item so that the search input
+        // can update immediately
+        setDebouncedVal(value);
+      }, 450)
+    );
   };
-  if (searchVal.length === 4 && !haveRun) {
-    setHaveRun(true);
-    grabData();
-  }
+
   return (
     <Wrap>
       <h1>Github Repository Search</h1>
       <div>Find a Github repository by searching below.</div>
       <Margin spaceBottom="1.5rem">
-        <InputSearch />
+        <InputSearch handleChange={handleInputChange} />
       </Margin>
       <SortWrap>
         <Sort />
@@ -73,7 +67,9 @@ export default function Splash() {
           })}
         </>
       ) : (
-        <>{searchVal && !error && !loading ? <>No results found!</> : null}</>
+        <>
+          {debouncedVal && !error && !loading ? <>No results found!</> : null}
+        </>
       )}
     </Wrap>
   );
