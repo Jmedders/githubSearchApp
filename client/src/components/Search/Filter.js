@@ -2,13 +2,18 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import StyledSelect from "../common/StyledSelect";
 import Margin from "../common/Margin";
+import { useSearch } from "../../context/search-context";
 
-export default function Filter({ val, handleChange }) {
+export default function Filter() {
+  const { filterVal, setFilterVal } = useSearch();
   return (
     <Label htmlFor="sort">
       <strong>Filter:</strong>
       <Margin spaceLeft="0.5rem">
-        <StyledSelect value={val} onChange={handleChange}>
+        <StyledSelect
+          value={filterVal}
+          onChange={({ target }) => setFilterVal(target.value)}
+        >
           <option value="" disabled>
             Filter By Language
           </option>
