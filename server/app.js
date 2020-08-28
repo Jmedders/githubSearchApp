@@ -7,4 +7,8 @@ app.use(cors());
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
-app.get("/", async (req, res) => {});
+app.get("/", async (req, res) => {
+  const { repositoryName, sortBy, filter } = req.query;
+  console.log(repositoryName, sortBy, filter);
+  res.send({ response: "found" });
+});
