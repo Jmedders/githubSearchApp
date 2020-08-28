@@ -5,6 +5,7 @@ import InputSearch from "../Search/InputSearch";
 import Filter from "../Search/Filter";
 import Sort from "../Search/Sort";
 import Margin from "../common/Margin";
+import ColorText from "../common/ColorText";
 import { useSearch } from "../../context/search-context";
 
 export default function Splash() {
@@ -35,9 +36,9 @@ export default function Splash() {
         // this data pulled off in Splash component
         setData(response.data.response);
       }
-    } catch (e) {
+    } catch (err) {
       // set error state
-      setError(e);
+      setError(err);
     }
   };
   if (searchVal.length === 4 && !haveRun) {
@@ -55,6 +56,15 @@ export default function Splash() {
         <Sort />
         <Filter />
       </SortWrap>
+      {error && (
+        <div>
+          <ColorText span error bold>
+            Error:{" "}
+          </ColorText>
+          We were unable to fetch your results from Github. Please check back in
+          and try again soon.
+        </div>
+      )}
     </Wrap>
   );
 }
