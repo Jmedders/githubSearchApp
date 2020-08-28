@@ -13,6 +13,7 @@ export default function Sort() {
         <StyledSelect
           name="sort"
           id="sort"
+          data-cy="sort"
           value={sortVal}
           onChange={({ target }) => setSortVal(target.value)}
         >

@@ -10,6 +10,7 @@ export default function InputSearch({ handleChange }) {
         value={searchVal}
         placeholder="Enter a search term"
         onChange={handleChange}
+        data-cy="input"
       />
     </Wrap>
   );

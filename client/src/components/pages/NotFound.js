@@ -4,9 +4,12 @@ import { Link } from "react-router-dom";
 
 export default function NotFound() {
   return (
-    <>
-      There's nothing here, head <StyledLink to="/">home</StyledLink>
-    </>
+    <div data-cy="notFound">
+      There's nothing here, head{" "}
+      <StyledLink data-cy="navHome" to="/">
+        home
+      </StyledLink>
+    </div>
   );
 }
 
