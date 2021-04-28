@@ -1,3 +1,5 @@
+# This app is a random app to query repositories on GitHub. The server directory is a bare-bones server which the frontend proxies to request repositories from GitHub. Additionally I implemented a lightweight, vanilla cache to cache results. The client directory is a snapshot into React practices I enjoy in 2020.
+
 # Setup
 
 To set up this repo, follow the below instructions
